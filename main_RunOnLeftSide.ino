@@ -112,21 +112,24 @@ void check_distance(){
   Serial.println(right_distance);
 }
 
+void validate_distance(){
+
+}
 void movement(){
   if (front_distance < front_defined_distance){
-    brake()
+    brake();
     if(left_distance < left_defined_distance){
-      turnRight(50)
+      turnRight(50);
     }else{
-      turnLeft(50)
+      turnLeft(50);
     }
   }else{
     if((right_distance - left_distance) > tooclose_defined_distance){
-      deviation_to_left(150)
+      deviation_to_left(150);
     }else if((left_distance - right_distance) > tooclose_defined_distance){
-      deviation_to_right(150)
+      deviation_to_right(150);
     }else{
-      moveForward(150)
+      moveForward(150);
     }
   }
 }
@@ -143,6 +146,7 @@ void setup() {
 }
 
 void loop(){
-  check_distance()
-  movement()
+  check_distance();
+  validate_distance();
+  movement();
 }
