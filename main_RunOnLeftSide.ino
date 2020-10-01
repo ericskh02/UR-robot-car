@@ -9,8 +9,8 @@
 #define ECHO_PIN_3 A1
 #define MAX_DISTANCE 200
 
-NewPing front_ultrasonic(TRIGGER_PIN_1, ECHO_PIN_1, MAX_DISTANCE);
-NewPing left_ultrasonic(TRIGGER_PIN_2, ECHO_PIN_2, MAX_DISTANCE);
+NewPing front_ultrasonic(TRIGGER_PIN_1, ECHO_PIN_1,MAX_DISTANCE);
+NewPing left_ultrasonic(TRIGGER_PIN_2, ECHO_PIN_2,MAX_DISTANCE);
 
 
 double duration_1;
@@ -95,11 +95,11 @@ void deviation_to_left(int speed){
 
 void check_distance(){
   digitalWrite(TRIGGER_PIN_3, LOW);
-  delayMicroseconds(2);
+  delayMicroseconds(3);
   digitalWrite(TRIGGER_PIN_3, HIGH);
   delayMicroseconds(10);
   digitalWrite(TRIGGER_PIN_3, LOW);
-  delayMicroseconds(2);
+  delayMicroseconds(3);
   duration_1 = pulseIn(A1, HIGH);
   right_distance = (duration_1) * 0.034 / 2;
   front_distance = front_ultrasonic.ping_cm();
@@ -113,23 +113,23 @@ void check_distance(){
 }
 
 void validate_distance(){
-
+  
 }
 void movement(){
   if (front_distance < front_defined_distance){
     brake();
     if(left_distance < left_defined_distance){
-      turnRight(50);
+      turnRight(25);
     }else{
-      turnLeft(50);
+      turnLeft(25);
     }
   }else{
     if((right_distance - left_distance) > tooclose_defined_distance){
-      deviation_to_left(150);
+      deviation_to_left(100);
     }else if((left_distance - right_distance) > tooclose_defined_distance){
-      deviation_to_right(150);
+      deviation_to_right(100);
     }else{
-      moveForward(150);
+      moveForward(100);
     }
   }
 }
